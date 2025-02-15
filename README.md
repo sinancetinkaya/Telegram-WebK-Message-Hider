@@ -1,2 +1,2 @@
 # Telegram-WebK-Message-Hider
-Hides messages from unwanted users in Telegram groups
+A Tampermonkey/Violentmonkey script that hides messages from unwanted users in Telegram(WebK) groups
