@@ -1,7 +1,8 @@
 // ==UserScript==
 // @name         Telegram WebK Message Hider
-// @namespace    https://github.com/sinancetinkaya
+// @namespace    https://github.com/sinancetinkaya/Telegram-WebK-Message-Hider
 // @version      2025-02-15
+// @license      MIT
 // @description  Hides messages from unwanted users in Telegram groups
 // @author       sinancetinkaya
 // @match        https://web.telegram.org/k/*
