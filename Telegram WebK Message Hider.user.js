@@ -13,9 +13,7 @@
   async () => {
     console.log("Telegram Message Hider has been started");
 
-    const user_ids = GM_getValue('user_ids');
-
-    function handleMessageNode(node, user_ids) {
+    async function handleMessageNode(node) {
 			// console.log(node);
       let is_message = node.matches("div[class='bubbles-group'],[class^='bubbles-group bubbles-group-']");
 
@@ -25,16 +23,17 @@
 
       if (!message) { return; }
 
-      // console.log(`message group found`);
-      let user_id = message.getAttribute("data-peer-id")
+      let user_id = message.getAttribute("data-peer-id");
+      let user = await GM_getValue(user_id, false);
+      // console.log(`${user_id}`, user);
 
-      if (!(user_id in user_ids)) { return; }
+      if (!user) { return; }
 
-      console.log(`hiding the message from id='${user_id}' name='${user_ids[user_id]['name']}' reason='${user_ids[user_id]['reason']}'`);
+      console.log(`hiding the message from id='${user_id}' name='${user['name']}' reason='${user['reason']}'`);
 
       // let bubbles_group = message.closest("div[class='bubbles-group'],[class^='bubbles-group ']");
 
-      // make color and background of the elements inside the message group black
+      // make color and background of the elements inside the message group
       var all = node.getElementsByTagName("*");
 
       // do not remove nodes because it messes with scrolling chat messages
@@ -45,7 +44,7 @@
     }
 
 
-    function walk(node)
+    async function walk(node)
     {
       if (!node.nodeType) { return; }
 
@@ -59,13 +58,13 @@
         case 1: // Element
         case 9: // Document
         case 11: // Document fragment
-          handleMessageNode(node, user_ids);
+          await handleMessageNode(node);
 
           child = node.firstChild;
           while (child)
           {
             next = child.nextSibling;
-            walk(child);
+            await walk(child);
             child = next;
           }
           break;
@@ -73,7 +72,7 @@
     }
 
 
-    function mutationHandler(mutationRecords)
+    async function mutationHandler(mutationRecords)
     {
       for (const {type, addedNodes} of mutationRecords)
       {
@@ -81,7 +80,7 @@
         {
           for (const node of addedNodes)
           {
-            walk(node);
+            await walk(node);
           }
         }
       }
