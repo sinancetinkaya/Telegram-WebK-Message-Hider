@@ -14,7 +14,7 @@
     console.log("Telegram Message Hider has been started");
 
     async function handleMessageNode(node) {
-			// console.log(node);
+      // console.log(node);
       let is_message = node.matches("div[class='bubbles-group'],[class^='bubbles-group bubbles-group-']");
 
       if (!is_message) { return; }
