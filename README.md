@@ -14,3 +14,6 @@ Example Values JSON
     }
 }
 ```
+
+# Install 
+https://greasyfork.org/en/scripts/527369-telegram-webk-message-hider
